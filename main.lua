@@ -8,3 +8,15 @@
 -----------------------------------------------------------------------------------------
 
 --
+
+local perso = require "objects.personagem"
+
+
+
+function mover()
+	if(perso:getBounds().yMax <= display.actualContentHeight) then
+		perso:move("up")
+	end
+end
+
+timer.performWithDelay( 500, mover, 0 )
