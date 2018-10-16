@@ -10,3 +10,11 @@
 --
 
 local perso = require "objects.personagem"
+
+perso.personagem.y = display.contentCenterY
+
+function mover()
+	perso:morrer()
+end
+
+timer.performWithDelay( 2000, mover, 1 )
