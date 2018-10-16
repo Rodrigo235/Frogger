@@ -11,10 +11,12 @@
 
 local perso = require "objects.personagem"
 
-perso.personagem.y = display.contentCenterY
+
 
 function mover()
-	perso:morrer()
+	if(perso:getBounds().yMax <= display.actualContentHeight) then
+		perso:move("up")
+	end
 end
 
-timer.performWithDelay( 2000, mover, 1 )
+timer.performWithDelay( 500, mover, 0 )
