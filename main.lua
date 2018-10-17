@@ -14,7 +14,7 @@ local Map = require "objects.mapa"
 Map:startGame()
 
 function mover()
-	Map:moverPersonagem("left")	
+	Map:moverPersonagem("up")	
 end
 
 timer.performWithDelay( 500, mover, 0 )
