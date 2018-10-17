@@ -4,7 +4,8 @@ local tamanho = 30
 local _P = 
 {
 	character = display.newRect(display.contentCenterX, altura * 0.85, tamanho, tamanho ),
-	vidas = 3
+	vidas = 3,
+	tag = "player"
 }
 
 _P.character:setFillColor(0, 0.75, 0)
@@ -44,6 +45,24 @@ function _P:getBounds()
 	return _P.character.contentBounds
 end
 
+function _P:setX(posX)
+	if(posX ~= nil) then
+		if(posX >= 0) then
+			_P.character.x = posX
+		end
+	end
+end
 
+function _P:setY(posY)
+	if(posX ~= nil) then
+		if(posY >= 0) then
+			_P.character.y = posY
+		end
+	end
+end
+
+function _P:getTag()
+	return _P.tag
+end
 
 return _P
