@@ -27,6 +27,7 @@ function _P:die()
 end
 
 function _P:presetPosition(posX, posY)
+	calledMethod("_P:presetPosition("..tostring(posX)..", "..tostring(posY)..")")
 	if(padraoX == nil) then
 		padraoX = posX
 	end
@@ -50,13 +51,13 @@ end
 function _P:move(direction)
 	calledMethod("_P:move("..tostring(direction)..")")
 	if(direction == "left") then
-		_P.character.x = _P.character.x - tamanho
+		_P.character.x = _P.character.x - tamanhoPersonagem
 	elseif(direction == "right") then
-		_P.character.x = _P.character.x + tamanho
+		_P.character.x = _P.character.x + tamanhoPersonagem
 	elseif(direction == "up") then
-		_P.character.y = _P.character.y - tamanho
+		_P.character.y = _P.character.y - tamanhoPersonagem
 	elseif(direction == "down") then
-		_P.character.y = _P.character.y + tamanho
+		_P.character.y = _P.character.y + tamanhoPersonagem
 	end
 end
 

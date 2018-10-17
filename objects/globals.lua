@@ -2,7 +2,7 @@ largura, altura = display.actualContentWidth, display.actualContentHeight
 
 centroX, centroY = display.contentCenterX, display.contentCenterY
 
-tamanhoPersonagem = 30
+tamanhoPersonagem = largura * 0.1
 
 larguraSegura, alturaSegura = display.safeActualContentWidth, display.safeActualContentHeight
 

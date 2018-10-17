@@ -14,9 +14,7 @@ local Map = require "objects.mapa"
 Map:startGame()
 
 function mover()
-	if(perso:getBounds().yMax <= display.actualContentHeight) then
-		perso:move("up")
-	end
+	Map:moverPersonagem("left")	
 end
 
---timer.performWithDelay( 500, mover, 0 )
+timer.performWithDelay( 500, mover, 0 )

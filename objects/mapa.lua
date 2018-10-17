@@ -5,7 +5,7 @@ local _M = {}
 function _M:makeMap()
 	calledMethod("_M:makeMap()")
 	_M.mapaCompleto = {
-		area = display.newRect(centroX, centroY - 45, largura-10, alturaSegura - 100),
+		area = display.newRect(centroX, centroY - 45, largura, alturaSegura - 100),
 		tag = "mapa"
 	}
 
@@ -34,19 +34,28 @@ function _M:makeMap()
 		tag = "rio"
 	}
 
-	_M.areaSegura1.area:setFillColor(0.5,0,1)
-	_M.areaSegura2.area:setFillColor(0.5,0,1)
-	_M.areaEstrada.area:setFillColor(0.15,0.15,0.15)
-	_M.areaRio.area:setFillColor(0,0,0.9)
-	_M.areaObjetivo.area:setFillColor(1,1,0)
+	_M.areaSegura1.area:setFillColor(0.5, 0, 1)
+	_M.areaSegura2.area:setFillColor(0.5, 0, 1)
+	_M.areaEstrada.area:setFillColor(0.15, 0.15, 0.15)
+	_M.areaRio.area:setFillColor(0, 0, 0.9)
+	_M.areaObjetivo.area:setFillColor(1, 1, 0)
 end
 
 function _M:startGame()
 	calledMethod("_M:startGame()")
 	_M:makeMap()
 	_P:makeFrogger()
-	_P:presetPosition(centroX, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
+	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
+end
+
+function _M:moverPersonagem(direction)
+	if(_P:getBounds().xMax < _M.mapaCompleto.area.contentBounds.xMax) then
+	 	_P:move(direction)
+	 end
+	if(_P:getBounds().xMin > _M.mapaCompleto.area.contentBounds.xMin) then
+		_P:move(direction)
+	end
 end
 
 return _M
