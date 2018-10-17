@@ -1,4 +1,4 @@
-local largura, altura = display.actualContentWidth, display.actualContentHeight
+require "objects.globals"
 local tamanho = 30
 
 local _P = 
