@@ -1,35 +1,54 @@
 require "objects.globals"
-local tamanho = 30
 
-local _P = 
-{
-	character = display.newRect(display.contentCenterX, altura * 0.85, tamanho, tamanho ),
-	vidas = 3,
-	tag = "player"
-}
+local _P = {}
 
-_P.character:setFillColor(0, 0.75, 0)
+local padraoX, padraoY
+
+function _P:makeFrogger()
+	calledMethod("_P:makeFrogger()")
+	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem)
+	_P.vidas = 3
+	_P.tag = "player"
+
+	_P.character:setFillColor(0, 0.75, 0)
+
+	_P:show(false)
+end
 
 function _P:show(arg)
+	calledMethod("_P:show("..tostring(arg)..")")
 	_P.character.isVisible = arg
 end
 
 function _P:die()
+	calledMethod("_P:die()")
 	_P:show(false)
 	timer.performWithDelay(2500, _P:resetCharacter(), 1)
 end
 
+function _P:presetPosition(posX, posY)
+	if(padraoX == nil) then
+		padraoX = posX
+	end
+	if(padraoY == nil) then
+		padraoY = posY
+	end
+end
+
 function _P:resetPosition()
-	_P.character.x = display.contentCenterX
-	_P.character.y = altura * 0.85
+	calledMethod("_P:resetPosition()")
+	_P.character.x = padraoX
+	_P.character.y = padraoY
 end
 
 function _P:resetCharacter()
+	calledMethod("_P:resetCharacter()")
 	_P:resetPosition()
 	_P:show(true)
 end
 
 function _P:move(direction)
+	calledMethod("_P:move("..tostring(direction)..")")
 	if(direction == "left") then
 		_P.character.x = _P.character.x - tamanho
 	elseif(direction == "right") then
@@ -42,10 +61,12 @@ function _P:move(direction)
 end
 
 function _P:getBounds()
+	calledMethod("_P:getBounds()")
 	return _P.character.contentBounds
 end
 
 function _P:setX(posX)
+	calledMethod("_P:setX("..tostring(posX)..")")
 	if(posX ~= nil) then
 		if(posX >= 0) then
 			_P.character.x = posX
@@ -54,7 +75,8 @@ function _P:setX(posX)
 end
 
 function _P:setY(posY)
-	if(posX ~= nil) then
+	calledMethod("_P:setY("..tostring(posY)..")")
+	if(posY ~= nil) then
 		if(posY >= 0) then
 			_P.character.y = posY
 		end
@@ -62,7 +84,22 @@ function _P:setY(posY)
 end
 
 function _P:getTag()
+	calledMethod("_P:getTag()")
 	return _P.tag
+end
+
+function _P:getX()
+	calledMethod("_P:getX()")
+	return _P.character.x
+end
+
+function _P:getY()
+	calledMethod("_P:getY()")
+	return _P.character.y
+end
+
+function _P:checarMorte(tag)
+	
 end
 
 return _P
