@@ -9,13 +9,12 @@
 
 --
 
-local perso = require "objects.personagem"
+local Map = require "objects.mapa"
 
+Map:startGame()
 
 function mover()
-	if(perso:getBounds().yMax <= display.actualContentHeight) then
-		perso:move("up")
-	end
+	Map:moverPersonagem("baixo")	
 end
 
-timer.performWithDelay( 500, mover, 0 )
+timer.performWithDelay( 1000, mover, 0 )
