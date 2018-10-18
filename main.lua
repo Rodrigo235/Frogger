@@ -17,4 +17,4 @@ function mover()
 	Map:moverPersonagem("cima")	
 end
 
-timer.performWithDelay( 1000, mover, 3 )
+--timer.performWithDelay( 200, mover, 0 )

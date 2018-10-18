@@ -22,8 +22,7 @@ end
 
 function _P:die()
 	calledMethod("_P:die()")
-	_P:show(false)
-	timer.performWithDelay(2500, _P:resetCharacter(), 1)
+	_P:resetCharacter()
 end
 
 function _P:presetPosition(posX, posY)
@@ -100,7 +99,14 @@ function _P:getY()
 end
 
 function _P:checarMorte(tag)
-	
+	calledMethod("_P:checarMorte("..tostring(tag)..")")
+	if(tag == "rio") then
+		_P:die()
+	end
+	if(tag == "objetivo") then
+		_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
+		_P.character:setFillColor(0, 0.75, 0)
+	end
 end
 
 return _P

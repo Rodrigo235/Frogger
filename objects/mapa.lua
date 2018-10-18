@@ -49,10 +49,20 @@ function _M:startGame()
 	_P:resetCharacter()
 end
 
+function _M:setTag()
+	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
+		_P:checarMorte(_M.areaObjetivo.tag)
+	end
+	if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
+		_P:checarMorte(_M.areaRio.tag)
+	end
+end
+
 function _M:moverPersonagem(direction)
 	calledMethod("_M:moverPersonagem()")
 	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
+		--_M:setTag()
 	end
 end
 
