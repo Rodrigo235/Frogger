@@ -50,13 +50,13 @@ end
 
 function _P:move(direction)
 	calledMethod("_P:move("..tostring(direction)..")")
-	if(direction == "left") then
+	if(direction == "esquerda") then
 		_P.character.x = _P.character.x - tamanhoPersonagem
-	elseif(direction == "right") then
+	elseif(direction == "direita") then
 		_P.character.x = _P.character.x + tamanhoPersonagem
-	elseif(direction == "up") then
+	elseif(direction == "cima") then
 		_P.character.y = _P.character.y - tamanhoPersonagem
-	elseif(direction == "down") then
+	elseif(direction == "baixo") then
 		_P.character.y = _P.character.y + tamanhoPersonagem
 	end
 end

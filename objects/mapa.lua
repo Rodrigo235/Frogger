@@ -5,7 +5,7 @@ local _M = {}
 function _M:makeMap()
 	calledMethod("_M:makeMap()")
 	_M.mapaCompleto = {
-		area = display.newRect(centroX, centroY - 45, largura, alturaSegura - 100),
+		area = display.newRect(centroX, centroY - tamanhoPersonagem, largura, tamanhoPersonagem * 15),
 		tag = "mapa"
 	}
 
@@ -50,11 +50,26 @@ function _M:startGame()
 end
 
 function _M:moverPersonagem(direction)
-	if(_P:getBounds().xMax < _M.mapaCompleto.area.contentBounds.xMax) then
-	 	_P:move(direction)
-	 end
-	if(_P:getBounds().xMin > _M.mapaCompleto.area.contentBounds.xMin) then
+	calledMethod("_M:moverPersonagem()")
+	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
+	end
+end
+
+function _M:podeMover(direction)
+	calledMethod("_M:podeMover("..tostring(direction)..")")
+	local pBounds, mBounds = _P:getBounds(), _M.mapaCompleto.area.contentBounds
+
+	if(direction == "baixo" and pBounds.yMax == mBounds.yMax) then
+		return false 
+	elseif(direction == "direita" and pBounds.xMax == mBounds.xMax) then 
+		return false
+	elseif(direction == "cima" and pBounds.yMin == mBounds.yMin) then 
+		return false
+	elseif(direction == "esquerda" and pBounds.xMin == mBounds.xMin) then 
+		return false
+	else
+		return true
 	end
 end
 
