@@ -50,6 +50,7 @@ function _M:startGame()
 end
 
 function _M:setTag()
+	calledMethod("_M:setTag()")
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
 		_P:checarMorte(_M.areaObjetivo.tag)
 	end
@@ -59,10 +60,10 @@ function _M:setTag()
 end
 
 function _M:moverPersonagem(direction)
-	calledMethod("_M:moverPersonagem()")
+	calledMethod("_M:moverPersonagem("..tostring(direction)..")")
 	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
-		--_M:setTag()
+		_M:setTag()
 	end
 end
 

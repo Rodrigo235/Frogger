@@ -8,6 +8,7 @@ function _P:makeFrogger()
 	calledMethod("_P:makeFrogger()")
 	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem)
 	_P.vidas = 3
+	_P.textoVida = display.newText( tostring(_P.vidas), largura * 0.9, altura * 0.85, native.systemFontBold, 50)
 	_P.tag = "player"
 
 	_P.character:setFillColor(0, 0.75, 0)
@@ -20,9 +21,21 @@ function _P:show(arg)
 	_P.character.isVisible = arg
 end
 
+function _P:tirarVida()
+	calledMethod("_P:tirarVida()")
+	_P.vidas = _P.vidas - 1
+	if(_P.vidas >= 0) then
+		_P.textoVida.text = _P.vidas
+	else
+		_P:gameOver()
+	end
+	
+end
+
 function _P:die()
 	calledMethod("_P:die()")
 	_P:resetCharacter()
+	_P:tirarVida()
 end
 
 function _P:presetPosition(posX, posY)
@@ -98,15 +111,24 @@ function _P:getY()
 	return _P.character.y
 end
 
+function _P:passarFase()
+	calledMethod("_P:passarFase()")
+	_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
+	_P.character:setFillColor(0, 0.75, 0)
+end
+
 function _P:checarMorte(tag)
 	calledMethod("_P:checarMorte("..tostring(tag)..")")
 	if(tag == "rio") then
 		_P:die()
 	end
 	if(tag == "objetivo") then
-		_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
-		_P.character:setFillColor(0, 0.75, 0)
+		_P:passarFase()
 	end
+end
+
+function _P:gameOver()
+	_P:show(false)
 end
 
 return _P
