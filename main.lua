@@ -9,12 +9,21 @@
 
 --
 
-local Map = require "objects.mapa"
+--local Map = require "objects.mapa"
 
-Map:startGame()
+-- Map:startGame()
 
-function mover()
-	Map:moverPersonagem("cima")	
-end
+-- function mover()
+-- 	Map:moverPersonagem("cima")	
+-- end
 
---timer.performWithDelay( 500, mover, 0 )
+-- timer.performWithDelay( 500, mover, 0 )
+
+-- for i,v in ipairs(native.getFontNames()) do
+-- 	print(i,v)
+-- end
+
+
+
+local Controles = require "objects.controles"
+Controles:makeControl()
