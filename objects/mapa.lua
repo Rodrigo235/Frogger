@@ -49,6 +49,11 @@ function _M:startGame()
 	_P:resetCharacter()
 end
 
+function restartGame()
+	_P:resetCharacter()
+	_M.textoGameOver:removeSelf()
+end
+
 function _M:setTag()
 	--calledMethod("_M:setTag()")
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
@@ -60,7 +65,7 @@ function _M:setTag()
 end
 
 function _M:moverPersonagem(direction)
-	--calledMethod("_M:moverPersonagem("..tostring(direction)..")")
+	calledMethod("_M:moverPersonagem("..tostring(direction)..")")
 	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
 		_M:setTag()
@@ -90,6 +95,7 @@ function _M:gameOver()
 		--destroyAll
 		_M.textoGameOver = display.newText( "Game Over", _M.mapaCompleto.area.x, _M.mapaCompleto.area.y, native.systemFontBold, 55)
 		_M.textoGameOver:setFillColor(1,0,0)
+		_M.textoGameOver:addEventListener("tap", restartGame)
 	end
 end
 

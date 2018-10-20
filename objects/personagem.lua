@@ -57,6 +57,7 @@ end
 function _P:resetCharacter()
 	--calledMethod("_P:resetCharacter()")
 	_P:resetPosition()
+	_P.vidas = 3
 	_P:show(true)
 end
 
