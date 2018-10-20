@@ -34,7 +34,7 @@ end
 
 function _P:die()
 	--calledMethod("_P:die()")
-	_P:resetCharacter()
+	_P:resetPosition()
 	_P:tirarVida()
 end
 
@@ -58,6 +58,7 @@ function _P:resetCharacter()
 	--calledMethod("_P:resetCharacter()")
 	_P:resetPosition()
 	_P.vidas = 3
+	_P.textoVida.text = tostring(_P.vidas)
 	_P:show(true)
 end
 
