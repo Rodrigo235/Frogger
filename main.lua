@@ -8,7 +8,7 @@
 -----------------------------------------------------------------------------------------
 
 --
-
+require "objects.globals"
 --local Map = require "objects.mapa"
 
 -- Map:startGame()

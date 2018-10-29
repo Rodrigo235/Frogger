@@ -1,5 +1,3 @@
-require "objects.globals"
-
 local _P = {}
 
 local padraoX, padraoY
@@ -17,12 +15,12 @@ function _P:makeFrogger()
 end
 
 function _P:show(arg)
-	--calledMethod("_P:show("..tostring(arg)..")")
+	calledMethod("_P:show("..tostring(arg)..")")
 	_P.character.isVisible = arg
 end
 
 function _P:tirarVida()
-	--calledMethod("_P:tirarVida()")
+	calledMethod("_P:tirarVida()")
 	_P.vidas = _P.vidas - 1
 	if(_P.vidas >= 0) then
 		_P.textoVida.text = _P.vidas
@@ -33,13 +31,13 @@ function _P:tirarVida()
 end
 
 function _P:die()
-	--calledMethod("_P:die()")
+	calledMethod("_P:die()")
 	_P:resetPosition()
 	_P:tirarVida()
 end
 
 function _P:presetPosition(posX, posY)
-	--calledMethod("_P:presetPosition("..tostring(posX)..", "..tostring(posY)..")")
+	calledMethod("_P:presetPosition("..tostring(posX)..", "..tostring(posY)..")")
 	if(padraoX == nil) then
 		padraoX = posX
 	end
@@ -49,13 +47,13 @@ function _P:presetPosition(posX, posY)
 end
 
 function _P:resetPosition()
-	--calledMethod("_P:resetPosition()")
+	calledMethod("_P:resetPosition()")
 	_P.character.x = padraoX
 	_P.character.y = padraoY
 end
 
 function _P:resetCharacter()
-	--calledMethod("_P:resetCharacter()")
+	calledMethod("_P:resetCharacter()")
 	_P:resetPosition()
 	_P.vidas = 3
 	_P.textoVida.text = tostring(_P.vidas)

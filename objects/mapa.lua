@@ -42,16 +42,21 @@ function _M:makeMap()
 end
 
 function _M:startGame()
-	--calledMethod("_M:startGame()")
+	calledMethod("_M:startGame()")
 	_M:makeMap()
 	_P:makeFrogger()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
 end
 
-function restartGame()
+function _M:tap()
+	_M:restartGame()
+end
+
+function _M:restartGame()
+	calledMethod("restartGame()")
 	_P:resetCharacter()
-	_M.textoGameOver:removeSelf()
+	display.remove(_M.textoGameOver)
 end
 
 function _M:setTag()
@@ -92,11 +97,14 @@ end
 
 function _M:gameOver()
 	if(_P.vidas == -1) then
+		calledMethod("_M:gameOver()")
 		--destroyAll
 		_M.textoGameOver = display.newText( "Game Over", _M.mapaCompleto.area.x, _M.mapaCompleto.area.y, native.systemFontBold, 55)
 		_M.textoGameOver:setFillColor(1,0,0)
-		_M.textoGameOver:addEventListener("tap", restartGame)
+		_M.textoGameOver:addEventListener("tap", _M)
 	end
 end
+
+
 
 return _M
