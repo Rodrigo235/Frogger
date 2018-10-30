@@ -1,6 +1,7 @@
-local _P = require "objects.personagem"
+_M = {}
 
-local _M = {}
+local _P = require "objects.personagem"
+local _C = require "objects.carros"
 
 function _M:makeMap()
 	--calledMethod("_M:makeMap()")
@@ -8,6 +9,8 @@ function _M:makeMap()
 		area = display.newRect(centroX, centroY - tamanhoPersonagem, largura, tamanhoPersonagem * 15),
 		tag = "mapa"
 	}
+
+	limiteMapa = _M.mapaCompleto.area.contentBounds
 
 	_M.areaSegura1 = {
 		area = display.newRect( centroX, (_M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2), largura, tamanhoPersonagem),
@@ -47,6 +50,7 @@ function _M:startGame()
 	_P:makeFrogger()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
+	_C:construirCarros()
 end
 
 function _M:tap()
@@ -55,8 +59,8 @@ end
 
 function _M:restartGame()
 	calledMethod("restartGame()")
-	_P:resetCharacter()
 	display.remove(_M.textoGameOver)
+	_P:resetCharacter()
 end
 
 function _M:setTag()
@@ -104,7 +108,6 @@ function _M:gameOver()
 		_M.textoGameOver:addEventListener("tap", _M)
 	end
 end
-
 
 
 return _M

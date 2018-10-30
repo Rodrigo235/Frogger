@@ -4,7 +4,7 @@ centroX, centroY = display.contentCenterX, display.contentCenterY
 
 tamanhoPersonagem = largura * 0.1
 
-larguraSegura, alturaSegura = display.safeActualContentWidth, display.safeActualContentHeight
+limiteMapa = nil
 
 function calledMethod(metodo)
 	print("Called Method ======== " ..tostring(metodo))
