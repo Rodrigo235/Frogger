@@ -23,7 +23,5 @@ require "objects.globals"
 -- 	print(i,v)
 -- end
 
-
-
 local Controles = require "objects.controles"
 Controles:makeControl()

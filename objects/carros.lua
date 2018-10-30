@@ -33,13 +33,15 @@ function _O:construirCarros()
 		carro[i].direcao = direcao
 		carro[i].tag = "carro"
 		posY = posY + tamanhoPersonagem
-		print(tostring(carro[i]))
 	end
 
 	function carro:moverCarros()
-		for i = 1, #self do
-			carro[i].imagem.x = carro[i].imagem.x + carro[i].velocidade
+		calledMethod("carro:moverCarros()")
+
+		for i = 1, #carro do
+			carro[i].imagem.x = carro[i].imagem.x + tamanhoPersonagem / 2
 		end
+
 	end
 	return carro
 end

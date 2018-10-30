@@ -50,7 +50,7 @@ function _M:startGame()
 	_P:makeFrogger()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
-	_C:construirCarros()
+	_M.carros = _C:construirCarros()
 end
 
 function _M:tap()
@@ -109,5 +109,12 @@ function _M:gameOver()
 	end
 end
 
+function enterFrame()
+	_M.carros:moverCarros()
+end
+
+timer.performWithDelay(1000, enterFrame, 2)
+
+--Runtime:addEventListener("enterFrame", _M)
 
 return _M
