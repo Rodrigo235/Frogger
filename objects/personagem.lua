@@ -34,6 +34,7 @@ function _P:die()
 	calledMethod("_P:die()")
 	_P:resetPosition()
 	_P:tirarVida()
+	return true
 end
 
 function _P:presetPosition(posX, posY)
@@ -120,6 +121,9 @@ end
 function _P:checarMorte(tag)
 	--calledMethod("_P:checarMorte("..tostring(tag)..")")
 	if(tag == "rio") then
+		_P:die()
+	end
+	if(tag == "carro") then
 		_P:die()
 	end
 	if(tag == "objetivo") then

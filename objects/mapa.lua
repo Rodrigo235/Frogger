@@ -71,6 +71,11 @@ function _M:setTag()
 	if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
 		_P:checarMorte(_M.areaRio.tag)
 	end
+	for i = 1, #_M.carros do
+		if (_P:getY() == _M.carros[i].imagem.y and _P:getX() < _M.carros[i].imagem.contentBounds.xMax and _P:getX() > _M.carros[i].imagem.contentBounds.xMin) then
+			_P:checarMorte(_M.carros[i].tag)
+		end
+	end
 end
 
 function _M:moverPersonagem(direction)
@@ -79,6 +84,13 @@ function _M:moverPersonagem(direction)
 		_P:move(direction)
 		_M:setTag()
 		_M:gameOver()
+	end
+end
+
+function _M:personagemMorreu()
+	if(_P:die() == true) then
+		display.remove( _M.carros )
+		_M.carros = _C:construirCarros()
 	end
 end
 
@@ -109,11 +121,12 @@ function _M:gameOver()
 	end
 end
 
-function enterFrame()
+function _M:timer()
 	_M.carros:moverCarros()
+	_M:setTag()
 end
 
-timer.performWithDelay(1000, enterFrame, 2)
+frames = timer.performWithDelay(1000, _M, 10)
 
 --Runtime:addEventListener("enterFrame", _M)
 

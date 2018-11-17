@@ -38,9 +38,12 @@ function _O:construirCarros()
 	function carro:moverCarros()
 		calledMethod("carro:moverCarros()")
 
-		for i = 1, #carro do
-			carro[i].imagem.x = carro[i].imagem.x + tamanhoPersonagem / 2
-		end
+		-- carro[1].imagem.x = carro[1].imagem.x - tamanhoPersonagem
+		-- carro[2].imagem.x = carro[2].imagem.x - tamanhoPersonagem
+		-- carro[3].imagem.x = carro[3].imagem.x - tamanhoPersonagem
+		-- carro[4].imagem.x = carro[4].imagem.x - tamanhoPersonagem
+		-- carro[5].imagem.x = carro[5].imagem.x - tamanhoPersonagem
+		-- carro[6].imagem.x = carro[6].imagem.x - tamanhoPersonagem
 
 	end
 	return carro
