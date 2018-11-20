@@ -122,8 +122,10 @@ function _M:gameOver()
 end
 
 function _M:timer()
-	_M.carros:moverCarros()
-	_M:setTag()
+	for i,v in ipairs(_M.carros) do
+		_C:moverCarro(v)
+		_M:setTag()
+	end
 end
 
 frames = timer.performWithDelay(1000, _M, 10)
