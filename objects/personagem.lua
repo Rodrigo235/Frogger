@@ -8,6 +8,7 @@ function _P:makeFrogger()
 	_P.vidas = 3
 	_P.textoVida = display.newText( tostring(_P.vidas), largura * 0.9, altura * 0.85, native.systemFontBold, 50)
 	_P.tag = "player"
+	_P.ganhadores = display.newGroup()
 
 	_P.character:setFillColor(0, 0.75, 0)
 
@@ -57,6 +58,7 @@ function _P:resetCharacter()
 	calledMethod("_P:resetCharacter()")
 	_P:resetPosition()
 	_P.vidas = 3
+	_P.ganhadores = display.newGroup()
 	_P.textoVida.text = tostring(_P.vidas)
 	_P:show(true)
 end
@@ -114,8 +116,12 @@ end
 
 function _P:passarFase()
 	--calledMethod("_P:passarFase()")
+	
+	_P.ganhadores:insert(_P.character)
 	_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
 	_P.character:setFillColor(0, 0.75, 0)
+	dificuldade = dificuldade * 0.75
+	_M:setTimer(dificuldade)
 end
 
 function _P:checarMorte(tag)
@@ -134,6 +140,7 @@ end
 function _P:gameOver()
 	--calledMethod("_P:gameOver()")
 	_P:show(false)
+	_M:gameOver()
 end
 
 return _P

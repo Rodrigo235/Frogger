@@ -51,6 +51,7 @@ function _M:startGame()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
 	_M.carros = _C:construirCarros()
+	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
 function _M:tap()
@@ -60,6 +61,8 @@ end
 function _M:restartGame()
 	calledMethod("restartGame()")
 	display.remove(_M.textoGameOver)
+	self:restartTimer()
+	display.remove(_P.ganhadores)
 	_P:resetCharacter()
 end
 
@@ -83,14 +86,6 @@ function _M:moverPersonagem(direction)
 	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
 		_M:setTag()
-		_M:gameOver()
-	end
-end
-
-function _M:personagemMorreu()
-	if(_P:die() == true) then
-		display.remove( _M.carros )
-		_M.carros = _C:construirCarros()
 	end
 end
 
@@ -112,13 +107,12 @@ function _M:podeMover(direction)
 end
 
 function _M:gameOver()
-	if(_P.vidas == -1) then
-		calledMethod("_M:gameOver()")
-		--destroyAll
-		_M.textoGameOver = display.newText( "Game Over", _M.mapaCompleto.area.x, _M.mapaCompleto.area.y, native.systemFontBold, 55)
-		_M.textoGameOver:setFillColor(1,0,0)
-		_M.textoGameOver:addEventListener("tap", _M)
-	end
+	calledMethod("_M:gameOver()")
+	--destroyAll
+	_M.textoGameOver = display.newText( "Game Over", _M.mapaCompleto.area.x, _M.mapaCompleto.area.y, native.systemFontBold, 55)
+	_M.textoGameOver:setFillColor(1,0,0)
+	_M.textoGameOver:addEventListener("tap", _M)
+	timer.pause(frames)
 end
 
 function _M:timer()
@@ -128,8 +122,19 @@ function _M:timer()
 	end
 end
 
-frames = timer.performWithDelay(1000, _M, 10)
+function _M:restartTimer()
+	if (frames) then
+		timer.cancel(frames)
+	end
+	dificuldade = 1000
+	frames = timer.performWithDelay( dificuldade, _M, 0)
+end
 
---Runtime:addEventListener("enterFrame", _M)
+function _M:setTimer(delay)
+	if (frames) then
+		timer.cancel(frames)
+	end
+	frames = timer.performWithDelay( delay, _M, 0)
+end
 
 return _M

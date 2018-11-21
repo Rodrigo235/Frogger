@@ -1,12 +1,12 @@
-local _O = {velocidade = 10, 
+local _O = {id = nil, 
 			imagem = nil, 
 			direcao = nil, 
 			tag = nil
 		}
 
-function _O:makeCar(velocidade, imagem, direcao, tag)
+function _O:makeCar(id, imagem, direcao, tag)
 	local car = {}
-	car.velocidade = velocidade
+	car.id = id
 	car.imagem = imagem
 	car.direcao = direcao
 	car.tag = tag
@@ -21,8 +21,6 @@ function _O:construirCarros()
 
 	for i = 1, 6 do
 
-		
-
 		if(direcao == "esquerda") then
 			direcao = "direita"
 		else
@@ -36,9 +34,10 @@ function _O:construirCarros()
 		end
 
 		imagem = display.newRect(posX, limiteMapa.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
+		imagem:setFillColor(1, 0, 0)
 		tag = "carro"
 
-		local carro = _O:makeCar(10, imagem, direcao, tag)
+		local carro = _O:makeCar(i, imagem, direcao, tag)
 
 		posY = posY + tamanhoPersonagem
 		table.insert(carros, carro)
@@ -47,13 +46,23 @@ function _O:construirCarros()
 end
 
 function _O:moverCarro(carro)
-	calledMethod("carro:moverCarros()")
-	print(carro.direcao)
+	-- calledMethod("carro:moverCarros()")
 
 	if(carro.direcao == "direita") then
 		carro.imagem.x = carro.imagem.x + tamanhoPersonagem
 	elseif(carro.direcao == "esquerda") then
 		carro.imagem.x = carro.imagem.x - tamanhoPersonagem
+	end
+	if(carro.imagem.x < 0 or carro.imagem.x > largura) then
+		self:resetCar(carro)
+	end
+end
+
+function _O:resetCar(carro)
+	if(math.fmod(carro.id, 2) == 0) then
+		carro.imagem.x = largura
+	else
+		carro.imagem.x = 0
 	end
 end
 
