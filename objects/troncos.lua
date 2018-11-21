@@ -1,21 +1,21 @@
-local _O = {velocidade = 10, 
+local _T = {velocidade = 10, 
 			imagem = nil, 
 			direcao = nil, 
 			tag = nil
 		}
 
-function _O:newObject()
-	return setmetatable( _O, obj )
+function _T:newObject()
+	return setmetatable( _T, obj )
 end
 
-function _O:construirCarros()
+function _T:construirCarros()
 	local carro = {}
 	local direcao = "esquerda"
 	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2 
 
 	for i = 1, 6 do
 
-		carro[i] = _O:newObject()
+		carro[i] = _T:newObject()
 
 		if(direcao == "esquerda") then
 			direcao = "direita"
@@ -49,4 +49,4 @@ function _O:construirCarros()
 	return carro
 end
 
-return _O
+return _T

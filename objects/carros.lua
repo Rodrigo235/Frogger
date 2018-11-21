@@ -1,10 +1,10 @@
-local _O = {id = nil, 
+local _C = {id = nil, 
 			imagem = nil, 
 			direcao = nil, 
 			tag = nil
 		}
 
-function _O:makeCar(id, imagem, direcao, tag)
+function _C:makeCar(id, imagem, direcao, tag)
 	local car = {}
 	car.id = id
 	car.imagem = imagem
@@ -14,7 +14,7 @@ function _O:makeCar(id, imagem, direcao, tag)
 	return car
 end
 
-function _O:construirCarros()
+function _C:construirCarros()
 	local carros = {}
 	local direcao = "esquerda"
 	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2 
@@ -37,7 +37,7 @@ function _O:construirCarros()
 		imagem:setFillColor(1, 0, 0)
 		tag = "carro"
 
-		local carro = _O:makeCar(i, imagem, direcao, tag)
+		local carro = _C:makeCar(i, imagem, direcao, tag)
 
 		posY = posY + tamanhoPersonagem
 		table.insert(carros, carro)
@@ -45,7 +45,7 @@ function _O:construirCarros()
 	return carros
 end
 
-function _O:moverCarro(carro)
+function _C:moverCarro(carro)
 	-- calledMethod("carro:moverCarros()")
 
 	if(carro.direcao == "direita") then
@@ -58,7 +58,7 @@ function _O:moverCarro(carro)
 	end
 end
 
-function _O:resetCar(carro)
+function _C:resetCar(carro)
 	if(math.fmod(carro.id, 2) == 0) then
 		carro.imagem.x = largura
 	else
@@ -66,4 +66,4 @@ function _O:resetCar(carro)
 	end
 end
 
-return _O
+return _C
