@@ -1,21 +1,28 @@
-local _T = {velocidade = 10, 
+local _T = {id = nil, 
 			imagem = nil, 
 			direcao = nil, 
 			tag = nil
 		}
 
-function _T:newObject()
-	return setmetatable( _T, obj )
+function _T:makeTronco(id, imagem, direcao, tag)
+	local tronco = {}
+	tronco.id = id
+	tronco.imagem = imagem
+	tronco.direcao = direcao
+	tronco.tag = tag
+
+	return tronco
 end
 
-function _T:construirCarros()
-	local carro = {}
+function _T:construirTroncos()
+	local troncos = {}
 	local direcao = "esquerda"
-	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2 
+	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2
+	local quantTroncos = 6
+	local posXtronco2 = posX
 
-	for i = 1, 6 do
+	for i = 1, quantTroncos do
 
-		carro[i] = _T:newObject()
 
 		if(direcao == "esquerda") then
 			direcao = "direita"
@@ -25,28 +32,56 @@ function _T:construirCarros()
 
 		if (posX > centroX) then
 			posX = tamanhoPersonagem
+			posXtronco2 = posX + (4 * tamanhoPersonagem)
 		else
 			posX = largura - tamanhoPersonagem
+			posXtronco2 = posX - (4 * tamanhoPersonagem)
 		end
 
-		carro[i].imagem = display.newRect(posX, limiteMapa.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
-		carro[i].direcao = direcao
-		carro[i].tag = "carro"
+		imagem = display.newRect(posX, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
+		imagem:setFillColor(0.6, 0.2, 0)
+		tag = "tronco"
+
+		local tronco1 = _T:makeTronco(i, imagem, direcao, tag)
+		table.insert(troncos, tronco1)
+
+		imagem = display.newRect(posXtronco2, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
+		imagem:setFillColor(0.6, 0.2, 0)
+
+		local tronco2 = _T:makeTronco(quantTroncos + i, imagem, direcao, tag)
+		print (tronco2.id)
+		table.insert(troncos, tronco2)
 		posY = posY + tamanhoPersonagem
 	end
-
-	function carro:moverCarros()
-		calledMethod("carro:moverCarros()")
-
-		-- carro[1].imagem.x = carro[1].imagem.x - tamanhoPersonagem
-		-- carro[2].imagem.x = carro[2].imagem.x - tamanhoPersonagem / 6
-		-- carro[3].imagem.x = carro[3].imagem.x - tamanhoPersonagem / 6
-		-- carro[4].imagem.x = carro[4].imagem.x - tamanhoPersonagem / 6
-		-- carro[5].imagem.x = carro[5].imagem.x - tamanhoPersonagem / 6
-		-- carro[6].imagem.x = carro[6].imagem.x - tamanhoPersonagem / 6
-
+	for i,v in ipairs(troncos) do
+		for k1,v1 in pairs(v) do
+			print(k1,v1)
+		end
 	end
-	return carro
+	return troncos
+end
+
+function _T:moverTronco(tronco)
+	-- calledMethod("tronco:movertroncos()")
+	for k,v in pairs(tronco) do
+		print(k,v)
+	end
+	if(tronco.direcao == "direita") then
+		tronco.imagem.x = tronco.imagem.x + tamanhoPersonagem
+	elseif(tronco.direcao == "esquerda") then
+		tronco.imagem.x = tronco.imagem.x - tamanhoPersonagem
+	end
+	if(tronco.imagem.x < 0 or tronco.imagem.x > largura) then
+		self:resetTronco(tronco)
+	end
+end
+
+function _T:resetTronco(tronco)
+	if(math.fmod(tronco.id, 2) == 0) then
+		tronco.imagem.x = largura
+	else
+		tronco.imagem.x = 0
+	end
 end
 
 return _T

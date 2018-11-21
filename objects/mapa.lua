@@ -2,6 +2,7 @@ _M = {}
 
 local _P = require "objects.personagem"
 local _C = require "objects.carros"
+local _T = require "objects.troncos"
 
 function _M:makeMap()
 	--calledMethod("_M:makeMap()")
@@ -51,6 +52,7 @@ function _M:startGame()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
 	_M.carros = _C:construirCarros()
+	_M.troncos = _T:construirTroncos()
 	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
@@ -69,14 +71,19 @@ end
 function _M:setTag()
 	--calledMethod("_M:setTag()")
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
-		_P:checarMorte(_M.areaObjetivo.tag)
+		_P:checarMorte(_M.areaObjetivo)
+	end
+	for i = 1, #_M.troncos do
+		if (_P:getY() == _M.troncos[i].imagem.y and _P:getX() < _M.troncos[i].imagem.contentBounds.xMax and _P:getX() > _M.troncos[i].imagem.contentBounds.xMin) then
+			_P:checarMorte(_M.troncos[i])
+		end
 	end
 	if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
-		_P:checarMorte(_M.areaRio.tag)
+		_P:checarMorte(_M.areaRio)
 	end
 	for i = 1, #_M.carros do
 		if (_P:getY() == _M.carros[i].imagem.y and _P:getX() < _M.carros[i].imagem.contentBounds.xMax and _P:getX() > _M.carros[i].imagem.contentBounds.xMin) then
-			_P:checarMorte(_M.carros[i].tag)
+			_P:checarMorte(_M.carros[i])
 		end
 	end
 end
@@ -116,10 +123,12 @@ function _M:gameOver()
 end
 
 function _M:timer()
-	for i,v in ipairs(_M.carros) do
-		_C:moverCarro(v)
-		_M:setTag()
+	for i = 1, #_M.carros do
+		_C:moverCarro(_M.carros[i])
+		_T:moverTronco(_M.troncos[i])
+		_T:moverTronco(_M.troncos[#_M.carros + i])
 	end
+	_M:setTag()
 end
 
 function _M:restartTimer()
