@@ -34,7 +34,7 @@ function _C:construirCarros()
 		end
 
 		imagem = display.newRect(posX, limiteMapa.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
-		imagem:setFillColor(1, 0, 0)
+		imagem:setFillColor(0.8, 0.8, 0.8)
 		tag = "carro"
 
 		local carro = _C:makeCar(i, imagem, direcao, tag)
