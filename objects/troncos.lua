@@ -49,23 +49,14 @@ function _T:construirTroncos()
 		imagem:setFillColor(0.6, 0.2, 0)
 
 		local tronco2 = _T:makeTronco(quantTroncos + i, imagem, direcao, tag)
-		print (tronco2.id)
 		table.insert(troncos, tronco2)
 		posY = posY + tamanhoPersonagem
-	end
-	for i,v in ipairs(troncos) do
-		for k1,v1 in pairs(v) do
-			print(k1,v1)
-		end
 	end
 	return troncos
 end
 
 function _T:moverTronco(tronco)
 	-- calledMethod("tronco:movertroncos()")
-	for k,v in pairs(tronco) do
-		print(k,v)
-	end
 	if(tronco.direcao == "direita") then
 		tronco.imagem.x = tronco.imagem.x + tamanhoPersonagem
 	elseif(tronco.direcao == "esquerda") then

@@ -23,5 +23,5 @@ require "objects.globals"
 -- 	print(i,v)
 -- end
 
-local Controles = require "objects.controles"
-Controles:makeControl()
+local mapa = require "objects.mapa"
+mapa:startGame()

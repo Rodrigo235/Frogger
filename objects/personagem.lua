@@ -104,6 +104,10 @@ function _P:getTag()
 	return _P.tag
 end
 
+function _P:setTag( tag )
+	_P.tag = tag
+end
+
 function _P:getX()
 	--calledMethod("_P:getX()")
 	return _P.character.x
@@ -122,6 +126,7 @@ function _P:passarFase()
 	_P.character:setFillColor(0, 0.75, 0)
 	dificuldade = dificuldade * 0.75
 	_M:setTimer(dificuldade)
+	_M:organizeLayout()
 end
 
 function _P:checarMorte(obj)
@@ -135,19 +140,12 @@ function _P:checarMorte(obj)
 	if(obj.tag == "objetivo") then
 		_P:passarFase()
 	end
-	if(obj.tag == "tronco") then
-		_P:fixarPosicao(obj)
-	end
 end
 
 function _P:gameOver()
 	--calledMethod("_P:gameOver()")
 	_P:show(false)
 	_M:gameOver()
-end
-
-function _P:fixarPosicao(obj)
-	_M:moverPersonagem(obj.direcao)
 end
 
 return _P
