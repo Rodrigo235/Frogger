@@ -1,7 +1,3 @@
-local _M = require "objects.mapa"
-
-_M:startGame()
-
 local _C = {}
 
 function _C:makeControl()
@@ -42,6 +38,10 @@ function _C:touch(event)
 	if(event.phase == "began") then
 		_M:moverPersonagem(event.target.direction)
 	end
+end
+
+function _C:toFront()
+	_C.direcionalCima:toFront( )
 end
 
 return _C

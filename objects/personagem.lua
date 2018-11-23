@@ -104,6 +104,10 @@ function _P:getTag()
 	return _P.tag
 end
 
+function _P:setTag( tag )
+	_P.tag = tag
+end
+
 function _P:getX()
 	--calledMethod("_P:getX()")
 	return _P.character.x
@@ -122,17 +126,18 @@ function _P:passarFase()
 	_P.character:setFillColor(0, 0.75, 0)
 	dificuldade = dificuldade * 0.75
 	_M:setTimer(dificuldade)
+	_M:organizeLayout()
 end
 
-function _P:checarMorte(tag)
+function _P:checarMorte(obj)
 	--calledMethod("_P:checarMorte("..tostring(tag)..")")
-	if(tag == "rio") then
+	if(obj.tag == "rio") then
 		_P:die()
 	end
-	if(tag == "carro") then
+	if(obj.tag == "carro") then
 		_P:die()
 	end
-	if(tag == "objetivo") then
+	if(obj.tag == "objetivo") then
 		_P:passarFase()
 	end
 end

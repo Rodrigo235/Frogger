@@ -2,6 +2,8 @@ _M = {}
 
 local _P = require "objects.personagem"
 local _C = require "objects.carros"
+local _T = require "objects.troncos"
+local Controls = require "objects.controles"
 
 function _M:makeMap()
 	--calledMethod("_M:makeMap()")
@@ -47,10 +49,12 @@ end
 function _M:startGame()
 	calledMethod("_M:startGame()")
 	_M:makeMap()
+	_M.carros = _C:construirCarros()
+	_M.troncos = _T:construirTroncos()
 	_P:makeFrogger()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
-	_M.carros = _C:construirCarros()
+	Controls:makeControl()
 	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
@@ -64,21 +68,34 @@ function _M:restartGame()
 	self:restartTimer()
 	display.remove(_P.ganhadores)
 	_P:resetCharacter()
+	Controls:toFront()
 end
 
 function _M:setTag()
 	--calledMethod("_M:setTag()")
+	local isTronco = false
+	frames.param = nil
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
-		_P:checarMorte(_M.areaObjetivo.tag)
+		_P:checarMorte(_M.areaObjetivo)
 	end
-	if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
-		_P:checarMorte(_M.areaRio.tag)
+	for i = 1, #_M.troncos do
+		if (_P:getY() == _M.troncos[i].imagem.y and _P:getX() < _M.troncos[i].imagem.contentBounds.xMax and _P:getX() > _M.troncos[i].imagem.contentBounds.xMin) then
+			isTronco = true
+			frames.param = _M.troncos[i]
+			_P:checarMorte(_M.troncos[i])
+		end
+	end
+	if(isTronco == false) then
+		if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
+			_P:checarMorte(_M.areaRio)
+		end
 	end
 	for i = 1, #_M.carros do
 		if (_P:getY() == _M.carros[i].imagem.y and _P:getX() < _M.carros[i].imagem.contentBounds.xMax and _P:getX() > _M.carros[i].imagem.contentBounds.xMin) then
-			_P:checarMorte(_M.carros[i].tag)
+			_P:checarMorte(_M.carros[i])
 		end
 	end
+	
 end
 
 function _M:moverPersonagem(direction)
@@ -87,6 +104,10 @@ function _M:moverPersonagem(direction)
 		_P:move(direction)
 		_M:setTag()
 	end
+end
+
+function _M:organizeLayout()
+	Controls:toFront()
 end
 
 function _M:podeMover(direction)
@@ -115,11 +136,18 @@ function _M:gameOver()
 	timer.pause(frames)
 end
 
-function _M:timer()
-	for i,v in ipairs(_M.carros) do
-		_C:moverCarro(v)
-		_M:setTag()
+function _M:timer(event)
+	for i = 1, #_M.carros do
+		_C:moverCarro(_M.carros[i])
+		_T:moverTronco(_M.troncos[i])
+		_T:moverTronco(_M.troncos[#_M.carros + i])
 	end
+	if(event.source.param) then
+		if(event.source.param.tag == "tronco") then
+			_M:moverPersonagem(event.source.param.direcao)
+		end
+	end
+	_M:setTag()
 end
 
 function _M:restartTimer()
