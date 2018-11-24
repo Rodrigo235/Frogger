@@ -35,9 +35,11 @@ function scene:destroy( event )
 end
 
 function scene:touch( event )
+	composer.removeScene( "cenas.rank" )
 	composer.gotoScene( "cenas.menu", {effect = "fade"} )
 end
 
 scene:addEventListener( "create", scene )
+scene:addEventListener( "destroy", scene )
 
 return scene

@@ -54,6 +54,7 @@ function _M:startGame()
 	_P:resetCharacter()
 	Controls:makeControl()
 	Controls:addEvents()
+	dificuldade = 1000
 	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
@@ -63,6 +64,7 @@ function _M:touch( event )
 			_M:restartGame()
 		end
 		if(event.target.text == "Menu") then
+			_M:destroyAll()
 			composer.gotoScene("cenas.menu", {effect = "fade"})
 		end
 	end
@@ -135,6 +137,7 @@ function _M:gameOver()
 	Controls:removeEvents()
 	if(faseAtual > maiorFase) then
 		maiorFase = faseAtual
+		faseAtual = 1
 	end
 	_M.textoGameOver = display.newGroup( )
 
@@ -185,12 +188,26 @@ function _M:setTimer(delay)
 end
 
 function _M:destroyAll()
-	display.remove(_M.mapaCompleto)
-	display.remove(_M.areaSegura1)
-	display.remove(_M.areaSegura2)
-	display.remove(_M.areaObjetivo)
-	display.remove(_M.areaEstrada)
-	display.remove(_M.areaRio)
+	display.remove(_M.textoGameOver)
+	display.remove(_M.mapaCompleto.area)
+	display.remove(_M.areaSegura1.area)
+	display.remove(_M.areaSegura2.area)
+	display.remove(_M.areaObjetivo.area)
+	display.remove(_M.areaEstrada.area)
+	display.remove(_M.areaRio.area)
+	display.remove(_P.character)
+	display.remove(_P.textoVida)
+	display.remove(_P.ganhadores)
+	for i = 1, #_M.carros do
+		display.remove(_M.carros[i].imagem)
+		display.remove(_M.troncos[i].imagem)
+		display.remove(_M.troncos[i + #_M.carros].imagem)
+	end
+	Controls:removeEvents()
+	display.remove(Controls.direcionalCima)
+	display.remove(Controls.direcionalBaixo)
+	display.remove(Controls.direcionalDireita)
+	display.remove(Controls.direcionalEsquerda)
 end
 
 return _M

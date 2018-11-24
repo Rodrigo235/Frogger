@@ -105,7 +105,6 @@ function _P:getY()
 end
 
 function _P:passarFase()
-	
 	_P.ganhadores:insert(_P.character)
 	_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
 	_P.character:setFillColor(0, 0.75, 0)

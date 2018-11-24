@@ -14,15 +14,15 @@ function _C:makeControl()
 	_C.direcionalCima:rotate(180)
 	_C.direcionalCima.direction = "cima"
 
-	_C.direcionalEsqurda = display.newImage(imagem)
-	_C.direcionalEsqurda.x = centroX - (_C.direcionalCima.contentBounds.yMax - _C.direcionalCima.contentBounds.yMin)
-	_C.direcionalEsqurda.y = _C.direcionalBaixo.y - (_C.direcionalBaixo.y - _C.direcionalCima.y) / 2
-	_C.direcionalEsqurda:rotate(90)
-	_C.direcionalEsqurda.direction = "esquerda"
+	_C.direcionalEsquerda = display.newImage(imagem)
+	_C.direcionalEsquerda.x = centroX - (_C.direcionalCima.contentBounds.yMax - _C.direcionalCima.contentBounds.yMin)
+	_C.direcionalEsquerda.y = _C.direcionalBaixo.y - (_C.direcionalBaixo.y - _C.direcionalCima.y) / 2
+	_C.direcionalEsquerda:rotate(90)
+	_C.direcionalEsquerda.direction = "esquerda"
 
 	_C.direcionalDireita = display.newImage(imagem)
 	_C.direcionalDireita.x = centroX + (_C.direcionalCima.contentBounds.yMax - _C.direcionalCima.contentBounds.yMin)
-	_C.direcionalDireita.y = _C.direcionalEsqurda.y
+	_C.direcionalDireita.y = _C.direcionalEsquerda.y
 	_C.direcionalDireita:rotate(270)
 	_C.direcionalDireita.direction = "direita"
 
@@ -41,14 +41,14 @@ end
 function _C:addEvents ()
 	_C.direcionalBaixo:addEventListener("touch", _C)
 	_C.direcionalCima:addEventListener("touch", _C)
-	_C.direcionalEsqurda:addEventListener("touch", _C)
+	_C.direcionalEsquerda:addEventListener("touch", _C)
 	_C.direcionalDireita:addEventListener("touch", _C)
 end
 
 function _C:removeEvents()
 	_C.direcionalBaixo:removeEventListener("touch", _C)
 	_C.direcionalCima:removeEventListener("touch", _C)
-	_C.direcionalEsqurda:removeEventListener("touch", _C)
+	_C.direcionalEsquerda:removeEventListener("touch", _C)
 	_C.direcionalDireita:removeEventListener("touch", _C)
 end
 
