@@ -16,7 +16,16 @@ function scene:show( event )
 	end
 end
 
+
+
+function scene:destroy(event)
+	local sceneGroup = self.view
+	print ("Destroy")
+	mapa:destroyAll()
+end
+
 scene:addEventListener("create", scene)
 scene:addEventListener("show", scene)
+scene:addEventListener("destroy", scene)
 
 return scene

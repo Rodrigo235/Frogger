@@ -6,7 +6,6 @@ local _T = require "objects.troncos"
 local Controls = require "objects.controles"
 
 function _M:makeMap()
-	--calledMethod("_M:makeMap()")
 	_M.mapaCompleto = {
 		area = display.newRect(centroX, centroY - tamanhoPersonagem, largura, tamanhoPersonagem * 15),
 		tag = "mapa"
@@ -47,7 +46,6 @@ function _M:makeMap()
 end
 
 function _M:startGame()
-	calledMethod("_M:startGame()")
 	_M:makeMap()
 	_M.carros = _C:construirCarros()
 	_M.troncos = _T:construirTroncos()
@@ -65,13 +63,12 @@ function _M:touch( event )
 			_M:restartGame()
 		end
 		if(event.target.text == "Menu") then
-			composer.gotoScene("cenas.menu")
+			composer.gotoScene("cenas.menu", {effect = "fade"})
 		end
 	end
 end
 
 function _M:restartGame()
-	calledMethod("restartGame()")
 	display.remove(_M.textoGameOver)
 	self:restartTimer()
 	display.remove(_P.ganhadores)
@@ -82,7 +79,6 @@ function _M:restartGame()
 end
 
 function _M:setTag()
-	--calledMethod("_M:setTag()")
 	local isTronco = false
 	frames.param = nil
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
@@ -109,7 +105,6 @@ function _M:setTag()
 end
 
 function _M:moverPersonagem(direction)
-	calledMethod("_M:moverPersonagem("..tostring(direction)..")")
 	if (_M:podeMover(direction) == true) then
 		_P:move(direction)
 		_M:setTag()
@@ -121,7 +116,6 @@ function _M:organizeLayout()
 end
 
 function _M:podeMover(direction)
-	--calledMethod("_M:podeMover("..tostring(direction)..")")
 	local pBounds, mBounds = _P:getBounds(), _M.mapaCompleto.area.contentBounds
 
 	if(direction == "baixo" and pBounds.yMax == mBounds.yMax) then
@@ -138,8 +132,6 @@ function _M:podeMover(direction)
 end
 
 function _M:gameOver()
-	calledMethod("_M:gameOver()")
-	--destroyAll
 	Controls:removeEvents()
 	if(faseAtual > maiorFase) then
 		maiorFase = faseAtual
@@ -190,6 +182,15 @@ function _M:setTimer(delay)
 		timer.cancel(frames)
 	end
 	frames = timer.performWithDelay( delay, _M, 0)
+end
+
+function _M:destroyAll()
+	display.remove(_M.mapaCompleto)
+	display.remove(_M.areaSegura1)
+	display.remove(_M.areaSegura2)
+	display.remove(_M.areaObjetivo)
+	display.remove(_M.areaEstrada)
+	display.remove(_M.areaRio)
 end
 
 return _M

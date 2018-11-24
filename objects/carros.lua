@@ -46,8 +46,6 @@ function _C:construirCarros()
 end
 
 function _C:moverCarro(carro)
-	-- calledMethod("carro:moverCarros()")
-
 	if(carro.direcao == "direita") then
 		carro.imagem.x = carro.imagem.x + tamanhoPersonagem
 	elseif(carro.direcao == "esquerda") then
