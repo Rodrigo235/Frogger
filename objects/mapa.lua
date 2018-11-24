@@ -55,11 +55,19 @@ function _M:startGame()
 	_P:presetPosition(centroX + tamanhoPersonagem / 2, _M.mapaCompleto.area.contentBounds.yMax - tamanhoPersonagem / 2)
 	_P:resetCharacter()
 	Controls:makeControl()
+	Controls:addEvents()
 	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
-function _M:tap()
-	_M:restartGame()
+function _M:touch( event )
+	if(event.phase == "began") then
+		if(event.target.text == "Reiniciar") then
+			_M:restartGame()
+		end
+		if(event.target.text == "Menu") then
+			composer.gotoScene("cenas.menu")
+		end
+	end
 end
 
 function _M:restartGame()
@@ -69,6 +77,8 @@ function _M:restartGame()
 	display.remove(_P.ganhadores)
 	_P:resetCharacter()
 	Controls:toFront()
+	Controls:addEvents()
+	faseAtual = 1
 end
 
 function _M:setTag()
@@ -130,9 +140,26 @@ end
 function _M:gameOver()
 	calledMethod("_M:gameOver()")
 	--destroyAll
-	_M.textoGameOver = display.newText( "Game Over", _M.mapaCompleto.area.x, _M.mapaCompleto.area.y, native.systemFontBold, 55)
-	_M.textoGameOver:setFillColor(1,0,0)
-	_M.textoGameOver:addEventListener("tap", _M)
+	Controls:removeEvents()
+	if(faseAtual > maiorFase) then
+		maiorFase = faseAtual
+	end
+	_M.textoGameOver = display.newGroup( )
+
+	local texto = display.newText( "Game Over", centroX, altura * 0.2, "Comic Sans MS", 55)
+
+	local textoReiniciar = display.newText( "Reiniciar", centroX, altura * 0.3, "Comic Sans MS", 55)
+	textoReiniciar:setFillColor(1, 0, 0)
+	textoReiniciar:addEventListener("touch", _M)
+
+	local textoSair = display.newText( "Menu", centroX, altura * 0.4, "Comic Sans MS", 55)
+	textoSair:setFillColor(1, 0, 0)
+	textoSair:addEventListener("touch", _M)
+
+	_M.textoGameOver:insert(texto)
+	_M.textoGameOver:insert(textoSair)
+	_M.textoGameOver:insert(textoReiniciar)
+
 	timer.pause(frames)
 end
 
