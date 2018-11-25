@@ -1,14 +1,19 @@
 local _P = {}
 
 local padraoX, padraoY
+local imagem = "images/Frogger.png"
 
 function _P:makeFrogger()
-	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem)
+	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem )
+
+	-- Usar quando tiver o sapinho
+	-- _P.character = display.newImage( imagem, centroX, centroY)
 	_P.vidas = 3
 	_P.textoVida = display.newText( tostring(_P.vidas), largura * 0.9, altura * 0.85, native.systemFontBold, 50)
 	_P.tag = "player"
 	_P.ganhadores = display.newGroup()
 
+	-- Tirar quando tiver o sapinho
 	_P.character:setFillColor(0, 0.75, 0)
 
 	_P:show(false)
@@ -56,6 +61,18 @@ function _P:resetCharacter()
 	_P:show(true)
 end
 
+function _P:rotacionar(lado)
+	if(lado == "esquerda" and _P.character.rotation ~= 270) then
+		_P.character:rotate(270)
+	elseif(lado == "direita" and _P.character.rotation ~= 90) then
+		_P.character:rotate(90)
+	elseif(lado == "cima" and _P.character.rotation ~= 0) then
+		_P.character:rotate(0)
+	elseif(lado == "baixo" and _P.character.rotation ~= 180) then
+		_P.character:rotate(180)
+	end
+end
+
 function _P:move(direction)
 	if(direction == "esquerda") then
 		_P.character.x = _P.character.x - tamanhoPersonagem
@@ -66,6 +83,8 @@ function _P:move(direction)
 	elseif(direction == "baixo") then
 		_P.character.y = _P.character.y + tamanhoPersonagem
 	end
+	-- Usar quando tiver o sapinho
+	-- _P:rotacionar(direction)
 end
 
 function _P:getBounds()
@@ -108,8 +127,8 @@ function _P:passarFase()
 	_P.ganhadores:insert(_P.character)
 	_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
 	_P.character:setFillColor(0, 0.75, 0)
-	faseAtual = faseAtual + 1
-	dificuldade = dificuldade * 0.75
+	subirFase()
+	subirDificuldade()
 	_M:setTimer(dificuldade)
 	_M:organizeLayout()
 end

@@ -54,7 +54,7 @@ function _M:startGame()
 	_P:resetCharacter()
 	Controls:makeControl()
 	Controls:addEvents()
-	dificuldade = 1000
+	resetDificuldade()
 	frames = timer.performWithDelay(dificuldade, _M, 0)
 end
 
@@ -77,7 +77,7 @@ function _M:restartGame()
 	_P:resetCharacter()
 	Controls:toFront()
 	Controls:addEvents()
-	faseAtual = 1
+	resetFase()
 end
 
 function _M:setTag()
@@ -135,10 +135,7 @@ end
 
 function _M:gameOver()
 	Controls:removeEvents()
-	if(faseAtual > maiorFase) then
-		maiorFase = faseAtual
-		faseAtual = 1
-	end
+	getMaiorFase()
 	_M.textoGameOver = display.newGroup( )
 
 	local texto = display.newText( "Game Over", centroX, altura * 0.2, "Comic Sans MS", 55)
