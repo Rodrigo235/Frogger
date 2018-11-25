@@ -5,15 +5,11 @@ local imagem = "images/Frogger.png"
 
 function _P:makeFrogger()
 	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem )
-
-	-- Usar quando tiver o sapinho
-	-- _P.character = display.newImage( imagem, centroX, centroY)
 	_P.vidas = 3
 	_P.textoVida = display.newText( tostring(_P.vidas), largura * 0.9, altura * 0.85, native.systemFontBold, 50)
 	_P.tag = "player"
 	_P.ganhadores = display.newGroup()
 
-	-- Tirar quando tiver o sapinho
 	_P.character:setFillColor(0, 0.75, 0)
 
 	_P:show(false)
@@ -83,8 +79,6 @@ function _P:move(direction)
 	elseif(direction == "baixo") then
 		_P.character.y = _P.character.y + tamanhoPersonagem
 	end
-	-- Usar quando tiver o sapinho
-	-- _P:rotacionar(direction)
 end
 
 function _P:getBounds()
