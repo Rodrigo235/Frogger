@@ -62,8 +62,7 @@ function _M:touch( event )
 	if(event.phase == "began") then
 		if(event.target.text == "Reiniciar") then
 			_M:restartGame()
-		end
-		if(event.target.text == "Menu") then
+		elseif(event.target.text == "Menu") then
 			_M:destroyAll()
 			composer.gotoScene("cenas.menu", {effect = "fade"})
 		end
@@ -138,21 +137,25 @@ function _M:gameOver()
 	getMaiorFase()
 	_M.textoGameOver = display.newGroup( )
 
+	local backGround = display.newRect( centroX, centroY, largura, altura)
+	backGround:setFillColor(0.2, 0.2, 0.2)
+
 	local texto = display.newText( "Game Over", centroX, altura * 0.2, "Comic Sans MS", 55)
 
-	local textoReiniciar = display.newText( "Reiniciar", centroX, altura * 0.3, "Comic Sans MS", 55)
+	local textoReiniciar = display.newText( "Reiniciar", centroX, altura * 0.4, "Comic Sans MS", 55)
 	textoReiniciar:setFillColor(1, 0, 0)
 	textoReiniciar:addEventListener("touch", _M)
 
-	local textoSair = display.newText( "Menu", centroX, altura * 0.4, "Comic Sans MS", 55)
+	local textoSair = display.newText( "Menu", centroX, altura * 0.6, "Comic Sans MS", 55)
 	textoSair:setFillColor(1, 0, 0)
 	textoSair:addEventListener("touch", _M)
 
+	_M.textoGameOver:insert(backGround)
 	_M.textoGameOver:insert(texto)
 	_M.textoGameOver:insert(textoSair)
 	_M.textoGameOver:insert(textoReiniciar)
 
-	timer.pause(frames)
+	timer.cancel(frames)
 end
 
 function _M:timer(event)

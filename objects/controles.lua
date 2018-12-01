@@ -35,7 +35,10 @@ function _C:touch(event)
 end
 
 function _C:toFront()
+	_C.direcionalBaixo:toFront( )
 	_C.direcionalCima:toFront( )
+	_C.direcionalEsquerda:toFront( )
+	_C.direcionalDireita:toFront( )
 end
 
 function _C:addEvents ()
