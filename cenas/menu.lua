@@ -55,6 +55,7 @@ function scene:touch( event )
 			composer.gotoScene( "cenas.rank", {effect = "fade", time = 200})
 		end
 		if(event.target.text == "Exit") then
+			fecharDB()
 			native.requestExit()
 		end
 	end

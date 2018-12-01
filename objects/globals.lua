@@ -1,5 +1,7 @@
 composer = require ("composer")
 
+db = require ("database.data")
+
 largura, altura = display.actualContentWidth, display.actualContentHeight
 
 centroX, centroY = display.contentCenterX, display.contentCenterY
@@ -11,7 +13,7 @@ limiteMapa = nil
 
 dificuldade = 1000
 
-maiorFase = 0
+maiorFase = db:getValue()
 
 faseAtual = 0
 
@@ -29,9 +31,10 @@ end
 
 function getMaiorFase()
 	if(faseAtual > maiorFase)then
-		maiorFase = faseAtual
-		resetFase()
+		db:insert(maiorFase, faseAtual)
+		maiorFase = db:getValue()
 	end
+	resetFase()
 end
 
 function subirDificuldade()
@@ -40,4 +43,8 @@ end
 
 function resetDificuldade()
 	dificuldade = 1000
+end
+
+function fecharDB()
+	db:close()
 end
