@@ -20,7 +20,7 @@ end
 function database:insert(maiorFase)
 	local script
 	if(self:getValue() > 0) then
-		script = [[UPDADE MaiorFase SET fase = ]]..maiorFase..[[;]]
+		script = [[UPDATE MaiorFase SET fase = ']]..maiorFase..[[';]]
 	else
 		script = [[INSERT INTO MaiorFase (fase) VALUES (]]..maiorFase..[[);]]
 	end
