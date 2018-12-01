@@ -31,7 +31,7 @@ end
 
 function getMaiorFase()
 	if(faseAtual > maiorFase)then
-		db:insert(maiorFase, faseAtual)
+		db:insert(faseAtual)
 		maiorFase = db:getValue()
 	end
 	resetFase()

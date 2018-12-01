@@ -10,7 +10,6 @@ print( criarTabela )
 db:exec(criarTabela)
 
 function database:getValue()
-
 	for row in db:urows('SELECT fase FROM MaiorFase') do
 		print (row)
 		return row
@@ -18,7 +17,7 @@ function database:getValue()
 	return 0
 end
 
-function database:insert(fase, maiorFase)
+function database:insert(maiorFase)
 	local script
 	if(self:getValue() > 0) then
 		script = [[UPDADE MaiorFase SET fase = ]]..maiorFase..[[;]]
