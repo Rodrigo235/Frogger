@@ -20,6 +20,7 @@ function _T:construirTroncos()
 	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2
 	local quantTroncos = 6
 	local posXtronco2 = posX
+	local image = "images/Tronco.png"
 
 	for i = 1, quantTroncos do
 
@@ -38,15 +39,13 @@ function _T:construirTroncos()
 			posXtronco2 = posX - (4 * tamanhoPersonagem)
 		end
 
-		imagem = display.newRect(posX, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
-		imagem:setFillColor(0.6, 0.2, 0)
+		imagem = display.newImage(image, posX, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem))
 		tag = "tronco"
 
 		local tronco1 = _T:makeTronco(i, imagem, direcao, tag)
 		table.insert(troncos, tronco1)
 
-		imagem = display.newRect(posXtronco2, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
-		imagem:setFillColor(0.6, 0.2, 0)
+		imagem = display.newImage(image, posXtronco2, _M.areaSegura2.area.contentBounds.yMax - (posY + tamanhoPersonagem))
 
 		local tronco2 = _T:makeTronco(quantTroncos + i, imagem, direcao, tag)
 		table.insert(troncos, tronco2)

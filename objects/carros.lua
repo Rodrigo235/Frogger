@@ -17,14 +17,17 @@ end
 function _C:construirCarros()
 	local carros = {}
 	local direcao = "esquerda"
+	local image = ""
 	local posX, posY = largura - tamanhoPersonagem, tamanhoPersonagem / 2 
 
 	for i = 1, 6 do
 
 		if(direcao == "esquerda") then
 			direcao = "direita"
+			image = "images/CaminhaoDireita.png"
 		else
 			direcao = "esquerda"
+			image = "images/CaminhaoEsquerda.png"
 		end
 
 		if (posX > centroX) then
@@ -33,8 +36,7 @@ function _C:construirCarros()
 			posX = largura - tamanhoPersonagem
 		end
 
-		imagem = display.newRect(posX, limiteMapa.yMax - (posY + tamanhoPersonagem), tamanhoPersonagem * 2, tamanhoPersonagem)
-		imagem:setFillColor(0.8, 0.8, 0.8)
+		imagem = display.newImage(image, posX, limiteMapa.yMax - (posY + tamanhoPersonagem ))
 		tag = "carro"
 
 		local carro = _C:makeCar(i, imagem, direcao, tag)
