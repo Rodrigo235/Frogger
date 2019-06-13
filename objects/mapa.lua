@@ -83,31 +83,35 @@ function _M:setTag()
 	local isTronco = false
 	frames.param = nil
 	if(_P:getY() < _M.areaObjetivo.area.contentBounds.yMax and _P:getY() > _M.areaObjetivo.area.contentBounds.yMin) then
-		_P:checarMorte(_M.areaObjetivo)
+		_P:setTag(_M.areaObjetivo.tag)
+		_P:checarMorte()
 	end
 	for i = 1, #_M.troncos do
 		if (_P:getY() == _M.troncos[i].imagem.y and _P:getX() < _M.troncos[i].imagem.contentBounds.xMax and _P:getX() > _M.troncos[i].imagem.contentBounds.xMin) then
 			isTronco = true
 			frames.param = _M.troncos[i]
-			_P:checarMorte(_M.troncos[i])
+			_P:setTag(_M.troncos[i].tag)
+			_P:checarMorte()
 		end
 	end
 	if(isTronco == false) then
 		if(_P:getY() < _M.areaRio.area.contentBounds.yMax and _P:getY() > _M.areaRio.area.contentBounds.yMin) then
-			_P:checarMorte(_M.areaRio)
+			_P:setTag(_M.areaRio.tag)
+			_P:checarMorte()
 		end
 	end
 	for i = 1, #_M.carros do
 		if (_P:getY() == _M.carros[i].imagem.y and _P:getX() < _M.carros[i].imagem.contentBounds.xMax and _P:getX() > _M.carros[i].imagem.contentBounds.xMin) then
-			_P:checarMorte(_M.carros[i])
+			_P:setTag(_M.carros[i].tag)
+			_P:checarMorte()
 		end
 	end
 	
 end
 
-function _M:moverPersonagem(direction)
+function _M:moverPersonagem(direction, isControl)
 	if (_M:podeMover(direction) == true) then
-		_P:move(direction)
+		_P:move(direction, isControl)
 		_M:setTag()
 	end
 end
@@ -166,7 +170,7 @@ function _M:timer(event)
 	end
 	if(event.source.param) then
 		if(event.source.param.tag == "tronco") then
-			_M:moverPersonagem(event.source.param.direcao)
+			_M:moverPersonagem(event.source.param.direcao, false)
 		end
 	end
 	_M:setTag()

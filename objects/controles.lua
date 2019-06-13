@@ -30,7 +30,7 @@ end
 
 function _C:touch(event)
 	if(event.phase == "began") then
-		_M:moverPersonagem(event.target.direction)
+		_M:moverPersonagem(event.target.direction, true)
 	end
 end
 

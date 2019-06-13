@@ -4,13 +4,14 @@ local padraoX, padraoY
 local imagem = "images/Frogger.png"
 
 function _P:makeFrogger()
-	_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem )
+	--_P.character = display.newRect(centroX, centroY, tamanhoPersonagem, tamanhoPersonagem )
+	_P.character = display.newImage(imagem)
 	_P.vidas = 3
 	_P.textoVida = display.newText( tostring(_P.vidas), largura * 0.9, altura * 0.85, native.systemFontBold, 50)
 	_P.tag = "player"
 	_P.ganhadores = display.newGroup()
 
-	_P.character:setFillColor(0, 0.75, 0)
+	--_P.character:setFillColor(0, 0.75, 0)
 
 	_P:show(false)
 end
@@ -57,19 +58,21 @@ function _P:resetCharacter()
 	_P:show(true)
 end
 
-function _P:rotacionar(lado)
-	if(lado == "esquerda" and _P.character.rotation ~= 270) then
-		_P.character:rotate(270)
-	elseif(lado == "direita" and _P.character.rotation ~= 90) then
-		_P.character:rotate(90)
-	elseif(lado == "cima" and _P.character.rotation ~= 0) then
-		_P.character:rotate(0)
-	elseif(lado == "baixo" and _P.character.rotation ~= 180) then
-		_P.character:rotate(180)
+function _P:rotacionar(lado, isControl)
+	if (isControl == true) then
+		if(lado == "esquerda" and _P.character.rotation ~= 270) then
+			_P.character.rotation = 270
+		elseif(lado == "direita" and _P.character.rotation ~= 90) then
+			_P.character.rotation = 90
+		elseif(lado == "cima" and _P.character.rotation ~= 0) then
+			_P.character.rotation = 0
+		elseif(lado == "baixo" and _P.character.rotation ~= 180) then
+			_P.character.rotation = 180
+		end
 	end
 end
 
-function _P:move(direction)
+function _P:move(direction, isControl)
 	if(direction == "esquerda") then
 		_P.character.x = _P.character.x - tamanhoPersonagem
 	elseif(direction == "direita") then
@@ -79,6 +82,8 @@ function _P:move(direction)
 	elseif(direction == "baixo") then
 		_P.character.y = _P.character.y + tamanhoPersonagem
 	end
+	
+	self:rotacionar(direction, isControl)
 end
 
 function _P:getBounds()
@@ -119,22 +124,23 @@ end
 
 function _P:passarFase()
 	_P.ganhadores:insert(_P.character)
-	_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
-	_P.character:setFillColor(0, 0.75, 0)
+	--_P.character = display.newRect(padraoX, padraoY, tamanhoPersonagem, tamanhoPersonagem)
+	--_P.character:setFillColor(0, 0.75, 0)
+	_P.character = display.newImage(imagem, padraoX, padraoY)
 	subirFase()
 	subirDificuldade()
 	_M:setTimer(dificuldade)
 	_M:organizeLayout()
 end
 
-function _P:checarMorte(obj)
-	if(obj.tag == "rio") then
+function _P:checarMorte()
+	if(self:getTag() == "rio") then
 		_P:die()
 	end
-	if(obj.tag == "carro") then
+	if(self:getTag() == "carro") then
 		_P:die()
 	end
-	if(obj.tag == "objetivo") then
+	if(self:getTag() == "objetivo") then
 		_P:passarFase()
 	end
 end
